@@ -3,7 +3,9 @@ import {Observable} from 'rxjs/internal/Observable';
 import {Inject, Injectable} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HeaderRequestInterceptor implements HttpInterceptor {
   protected defaultLanguage: string;
   public constructor(

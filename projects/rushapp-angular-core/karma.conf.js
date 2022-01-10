@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../../coverage/angular-core'),
+      dir: require('path').join(__dirname, '../../coverage/rushapp-angular-core'),
       subdir: '.',
       reporters: [
         { type: 'html' },

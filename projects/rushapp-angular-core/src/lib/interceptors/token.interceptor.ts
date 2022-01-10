@@ -6,7 +6,9 @@ import {catchError, switchMap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {IBearerToken} from '../interfaces/auth.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TokenInterceptor implements HttpInterceptor {
   public constructor(
     private authService: AuthService,

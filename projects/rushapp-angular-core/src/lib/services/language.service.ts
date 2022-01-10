@@ -3,29 +3,31 @@ import {TranslateService} from '@ngx-translate/core';
 import {isPlatformBrowser} from '@angular/common';
 import {BrowserLocalStorageService} from '../ssr-services/browser-local-storage.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LanguageService {
-  protected serviceLanguages: object;
+  protected languages: object;
   protected defaultLanguage: string;
 
   public constructor(
     private translateService: TranslateService,
     private browserLocalStorage: BrowserLocalStorageService,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject('serviceLanguages') serviceLanguages: object,
+    @Inject('languages') languages: object,
     @Inject('defaultLanguage') defaultLanguage: string
   ) {
-    this.serviceLanguages = serviceLanguages;
+    this.languages = languages;
     this.defaultLanguage = defaultLanguage;
   }
 
   public setAvailableLanguages(): void {
-    this.translateService.addLangs(Object.keys(this.serviceLanguages));
+    this.translateService.addLangs(Object.keys(this.languages));
 
-    if (isPlatformBrowser(this.platformId) && this.serviceLanguages.hasOwnProperty(navigator.language)) {
+    if (isPlatformBrowser(this.platformId) && this.languages.hasOwnProperty(navigator.language)) {
       this.translateService.setDefaultLang(navigator.language);
       //@ts-ignore
-    } else if (this.serviceLanguages.hasOwnProperty(this.translateService.getBrowserLang())) {
+    } else if (this.languages.hasOwnProperty(this.translateService.getBrowserLang())) {
       //@ts-ignore
       this.translateService.setDefaultLang(this.translateService.getBrowserLang());
     } else {
@@ -41,14 +43,15 @@ export class LanguageService {
   }
   public setInitialLanguage(lang?: string): void {
     //@ts-ignore
-    this.currentLanguage = this.serviceLanguages.hasOwnProperty(lang) ? lang : this.getInitialLanguage();
+    this.currentLanguage = this.languages.hasOwnProperty(lang) ? lang : this.getInitialLanguage();
   }
   public get currentLanguage(): string {
     return this.translateService.currentLang;
   }
   public set currentLanguage(lang: string) {
-    const language = this.serviceLanguages.hasOwnProperty(lang) ? lang : this.defaultLanguage;
+    const language = this.languages.hasOwnProperty(lang) ? lang : this.defaultLanguage;
     this.translateService.use(language);
     this.browserLocalStorage.setItem('language', language);
   }
 }
+
