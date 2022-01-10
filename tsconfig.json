@@ -3,9 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "angular-core": [
-        "dist/angular-core/angular-core",
-        "dist/angular-core"
+      "rushapp-angular-core": [
+        "dist/rushapp-angular-core"
+      ],
+      "rushapp-angular-core/*": [
+        "dist/rushapp-angular-core/*"
       ]
     },
     "baseUrl": "./",

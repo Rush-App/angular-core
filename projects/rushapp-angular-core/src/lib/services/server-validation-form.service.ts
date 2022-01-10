@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ServerValidationFormService {
   private serverValidationErrors: object = {};
   private duration = 2000;
