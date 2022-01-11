@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {BrowserLocalStorageService} from '../../ssr-services/browser-local-storage.service';
 import {map} from 'rxjs/operators';
-import {IBearerToken, IChangePassword, ILogin, ISetNewPassword} from '../../interfaces/auth.interface';
+import {IAuth, IBearerToken, IChangePassword, ILogin, ISetNewPassword} from '../../interfaces/auth.interface';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable({
@@ -18,6 +18,13 @@ export class AuthService {
     protected router: Router
   ) { }
 
+  public register(user: any): Observable<any> {
+    return this.apiService.sendPost(this.apiService.getEndpoint('register'), user)
+      .pipe(
+        map((res: IAuth) => this.setToken(res.token)),
+        catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
+      );
+  }
   public login(data: ILogin): Observable<any> {
     return this.apiService.sendPost(this.apiService.getEndpoint('login'), data)
       .pipe(

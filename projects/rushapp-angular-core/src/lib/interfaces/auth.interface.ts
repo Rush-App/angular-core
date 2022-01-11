@@ -18,3 +18,7 @@ export interface ISetNewPassword {
   password_confirmation: string;
   password_token: string;
 }
+
+export interface IAuth {
+  token: string;
+}
