@@ -18,6 +18,7 @@ export * from './lib/services/language.service';
 export * from './lib/services/notification.service';
 export * from './lib/services/seo-optimization.service';
 export * from './lib/services/server-validation-form.service';
+export * from './lib/services/canonical-link.service';
 
 export * from './lib/ssr-services/browser-local-storage.service';
 export * from './lib/ssr-services/server-local-storage.service';
