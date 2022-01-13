@@ -35,16 +35,18 @@ export class ApiService {
   }
 
   public httpResponseErrorHandler(response: HttpErrorResponse): Observable<never> {
-    if (response.status !== 422 && response.status > 400) {
-      const message = response.error;
-      this.notificationService.error(
-        `${response.status} - ${message}`,
-        undefined,
-        true
-      );
+    if (response.status > 400) {
+      if (response.status !== 422) {
+        const message = response.error.hasOwnProperty('error') ? response.error.error : response.error;
+        this.notificationService.error(
+          `${response.status} - ${message}`,
+          undefined,
+          true
+        );
+      }
     } else {
       this.notificationService.error(
-        'Unknown error from server',
+        'UNKNOWN_SERVER_ERROR',
         undefined,
         true
       );

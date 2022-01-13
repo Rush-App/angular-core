@@ -29,27 +29,27 @@ export class AuthService {
     return this.apiService.sendPost(this.apiService.getEndpoint('login'), data)
       .pipe(
         map((res: IBearerToken) => this.setToken(res.token)),
-        catchError((error: HttpErrorResponse) => throwError(() => error))
+        catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       );
   }
   public changePassword(data: IChangePassword): Observable<any> {
     return this.apiService.sendPost(this.apiService.getEndpoint('change-password'), data)
       .pipe(
         map((res: IBearerToken) => this.setToken(res.token)),
-        catchError((error: HttpErrorResponse) => throwError(() => error))
+        catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       );
   }
   public resetPassword(email: string): Observable<any> {
     return this.apiService.sendPost(this.apiService.getEndpoint('reset-password'), email)
       .pipe(
-        catchError((error: HttpErrorResponse) => throwError(() => error))
+        catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       );
   }
   public setNewPassword(data: ISetNewPassword): Observable<any> {
     return this.apiService.sendPost(this.apiService.getEndpoint('set-password'), data)
       .pipe(
         map((res: IBearerToken) => this.setToken(res.token)),
-        catchError((error: HttpErrorResponse) => throwError(() => error))
+        catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       );
   }
   public refreshToken(): Observable<any> {
@@ -67,7 +67,7 @@ export class AuthService {
   public backendLogout(): void {
     this.apiService.sendPost(this.apiService.getEndpoint('logout'))
       .pipe(
-        catchError((error: HttpErrorResponse) => throwError(() => error))
+        catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       )
       .subscribe(
         () => {
