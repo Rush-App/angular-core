@@ -21,13 +21,13 @@ export class ApiService {
   public getEndpoint(route: string): string {
     return this.apiEndpoint + route;
   }
-  public sendGet(url: string, options: IOptions = {}): Observable<any> {
+  public sendGet(url: string, options: any | IOptions = {}): Observable<any> {
     return this.http.get(url, options);
   }
-  public sendPost(url: string, data: any = {}, options: IOptions = {}): Observable<any> {
+  public sendPost(url: string, data: any = {}, options: any | IOptions = {}): Observable<any> {
     return this.http.post(url, data, options);
   }
-  public sendPut(url: string, data: any = {}, options: IOptions = {}): Observable<any> {
+  public sendPut(url: string, data: any = {}, options: any | IOptions = {}): Observable<any> {
     return this.http.put(url, data, options);
   }
   public sendDelete(url: string, options: any = {}): Observable<any> {
