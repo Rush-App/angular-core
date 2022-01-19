@@ -10,7 +10,7 @@ export interface IOptions {
     [param: string]: string | string[];
   };
   reportProgress?: boolean;
-  responseType?: 'json';
+  responseType?: 'json' | 'text' | 'arraybuffer' | 'blob';
   withCredentials?: boolean;
 }
 
