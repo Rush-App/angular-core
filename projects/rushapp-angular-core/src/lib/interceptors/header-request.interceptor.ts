@@ -16,13 +16,23 @@ export class HeaderRequestInterceptor implements HttpInterceptor {
   }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
-      setHeaders: {
-        Language: this.translateService.currentLang || this.defaultLanguage,
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true,
-    });
+    if (request.body instanceof FormData) {
+      request = request.clone({
+        setHeaders: {
+          Language: this.translateService.currentLang || this.defaultLanguage,
+        },
+        withCredentials: true,
+      });
+    } else {
+      request = request.clone({
+        setHeaders: {
+          Language: this.translateService.currentLang || this.defaultLanguage,
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+      });
+    }
+
     return next.handle(request);
   }
 }
