@@ -2,7 +2,8 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable} from 'rxjs/internal/Observable';
 import {Inject, Injectable} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import * as FormData from 'form-data';
+//@ts-ignore
+import FormData from "form-data"
 
 @Injectable({
   providedIn: 'root'
