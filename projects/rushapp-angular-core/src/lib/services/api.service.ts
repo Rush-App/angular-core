@@ -2,14 +2,14 @@ import {Inject, Injectable} from '@angular/core';
 import {NotificationService} from './notification.service';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {IOptions} from '../interfaces/crud.interface';
-import {Observable} from 'rxjs/internal/Observable';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   protected apiEndpoint: string;
+
   public constructor(
     protected http: HttpClient,
     protected notificationService: NotificationService,

@@ -13,7 +13,7 @@ export interface ILogin {
   password: string;
 }
 
-export interface ISetNewPassword {
+export interface IChangeForgottenPassword {
   password: string;
   password_confirmation: string;
   password_token: string;

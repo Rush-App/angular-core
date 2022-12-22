@@ -24,26 +24,29 @@ export class LanguageService {
   public setAvailableLanguages(): void {
     this.translateService.addLangs(Object.keys(this.languages));
 
+    let browserLang: string | undefined = this.translateService.getBrowserLang();
+
     if (isPlatformBrowser(this.platformId) && this.languages.hasOwnProperty(navigator.language)) {
       this.translateService.setDefaultLang(navigator.language);
-      //@ts-ignore
-    } else if (this.languages.hasOwnProperty(this.translateService.getBrowserLang())) {
-      //@ts-ignore
-      this.translateService.setDefaultLang(this.translateService.getBrowserLang());
+    } else if (browserLang && this.languages.hasOwnProperty(browserLang)) {
+      this.translateService.setDefaultLang(browserLang);
     } else {
       this.translateService.setDefaultLang(this.defaultLanguage);
     }
   }
   public getInitialLanguage(): string {
-    //@ts-ignore
-    const langInLocalStorage: string = this.browserLocalStorage.getItem('language');
-    return this.translateService.getLangs().includes(langInLocalStorage)
-      ? langInLocalStorage
-      : this.translateService.getDefaultLang();
+    const langInLocalStorage: string|null = this.browserLocalStorage.getItem('language');
+
+    if (langInLocalStorage && this.translateService.getLangs().includes(langInLocalStorage)) {
+      return langInLocalStorage;
+    }
+
+    return this.translateService.getDefaultLang();
   }
   public setInitialLanguage(lang?: string): void {
-    //@ts-ignore
-    this.currentLanguage = this.languages.hasOwnProperty(lang) ? lang : this.getInitialLanguage();
+    this.currentLanguage = lang && this.languages.hasOwnProperty(lang)
+      ? lang
+      : this.getInitialLanguage();
   }
   public get currentLanguage(): string {
     return this.translateService.currentLang;

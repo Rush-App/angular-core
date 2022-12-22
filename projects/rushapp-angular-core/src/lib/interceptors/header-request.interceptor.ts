@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 })
 export class HeaderRequestInterceptor implements HttpInterceptor {
   protected defaultLanguage: string;
+
   public constructor(
     private translateService: TranslateService,
     @Inject('defaultLanguage') defaultLanguage: string
@@ -18,13 +19,7 @@ export class HeaderRequestInterceptor implements HttpInterceptor {
   }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let language: string = (this.translateService.currentLang || this.defaultLanguage);
-    if (request.params.get('set_header_language')) {
-      //@ts-ignore
-      language = request.params.get('set_header_language');
-    } else if (request.body?.set_header_language) {
-      language = request.body.set_header_language;
-    }
+    let language: string|null = (this.translateService.currentLang || this.defaultLanguage);
 
     if (request.body instanceof FormData) {
       request = request.clone({

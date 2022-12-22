@@ -1,9 +1,8 @@
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs/internal/Observable';
 import {Injectable} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {catchError, switchMap} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {IBearerToken} from '../interfaces/auth.interface';
 
 @Injectable({

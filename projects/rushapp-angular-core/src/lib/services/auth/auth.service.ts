@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {BrowserLocalStorageService} from '../../ssr-services/browser-local-storage.service';
 import {map} from 'rxjs/operators';
-import {IAuth, IBearerToken, IChangePassword, ILogin, ISetNewPassword} from '../../interfaces/auth.interface';
+import {IAuth, IBearerToken, IChangePassword, ILogin, IChangeForgottenPassword} from '../../interfaces/auth.interface';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable({
@@ -39,14 +39,14 @@ export class AuthService {
         catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       );
   }
-  public resetPassword(email: string): Observable<any> {
-    return this.apiService.sendPost(this.apiService.getEndpoint('reset-password'), email)
+  public passwordResetRequest(email: string): Observable<any> {
+    return this.apiService.sendPost(this.apiService.getEndpoint('password-reset-request'), email)
       .pipe(
         catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))
       );
   }
-  public setNewPassword(data: ISetNewPassword): Observable<any> {
-    return this.apiService.sendPost(this.apiService.getEndpoint('set-password'), data)
+  public changeForgottenPassword(data: IChangeForgottenPassword): Observable<any> {
+    return this.apiService.sendPost(this.apiService.getEndpoint('change-forgotten-password'), data)
       .pipe(
         map((res: IBearerToken) => this.setToken(res.token)),
         catchError((error: HttpErrorResponse) => this.apiService.httpResponseErrorHandler(error))

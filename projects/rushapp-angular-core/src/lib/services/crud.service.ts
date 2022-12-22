@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs';
-import {ICrud, IGetPaginate} from '../interfaces/crud.interface';
+import {ICrud, IGetPaginate, IOptions} from '../interfaces/crud.interface';
 import {map, catchError} from 'rxjs/operators';
 import * as _ from 'lodash-es';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -61,7 +61,7 @@ export abstract class CrudService extends ApiService implements ICrud {
         })
       );
   }
-  public store<T>(data: T, options?: T): Observable<any> {
+  public store<T>(data: T, options?: IOptions): Observable<any> {
     this.setStoreRequestInProgress();
     return this.sendPost(this.getEndpoint(this.namespace), data, options)
       .pipe(
@@ -75,7 +75,7 @@ export abstract class CrudService extends ApiService implements ICrud {
         })
       );
   }
-  public update<T>(id: number, data: T, options?: T): Observable<any> {
+  public update<T>(id: number, data: T, options?: IOptions): Observable<any> {
     this.setUpdateRequestInProgress();
     return this.sendPut(this.getEndpoint(this.namespace + '/' + id), data, options)
       .pipe(
